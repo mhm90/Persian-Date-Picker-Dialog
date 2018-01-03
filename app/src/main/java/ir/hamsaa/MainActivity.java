@@ -1,6 +1,7 @@
 package ir.hamsaa;
 
 
+import android.app.PersianDatePicker;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -8,9 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import ir.hamsaa.persiandatepicker.Listener;
-import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
-import ir.hamsaa.persiandatepicker.util.PersianCalendar;
+import android.app.PersianDatePickerDialog;
+
+import java.util.PersianCalendar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         Typeface typeface = Typeface.createFromAsset(getAssets(), "Shabnam-Light-FD.ttf");
 
         PersianCalendar initDate = new PersianCalendar();
-        initDate.setPersianDate(1370, 3, 13);
+        initDate.setPersianDate(1370, 3 - 1, 13);
 
         picker = new PersianDatePickerDialog(this)
                 .setPositiveButtonString("باشه")
@@ -40,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
                 .setInitDate(initDate)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
-                .setListener(new Listener() {
+                .setOnDateSetListener(new PersianDatePickerDialog.OnDateSetListener() {
+
                     @Override
-                    public void onDateSelected(PersianCalendar persianCalendar) {
-                        Toast.makeText(MainActivity.this, persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
+                    public void onDateSet(PersianDatePicker datePickerView, PersianCalendar persianCalendar) {
+                        Toast.makeText(MainActivity.this, persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonthName() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

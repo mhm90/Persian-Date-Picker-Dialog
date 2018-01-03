@@ -16,7 +16,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ir.hamsaa.persiandatepicker.util;
+package java.util.persian;
 
 /**
  * algorithms for converting Julian days to the Persian calendar, and vice versa
