@@ -16,7 +16,9 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ir.hamsaa.persiandatepicker.util;
+package java.util.persian;
+
+import java.util.PersianCalendar;
 
 /**
  * Parses text from the beginning of the given string to produce a
@@ -110,7 +112,7 @@ public class PersianDateParser {
 		checkPersianDateValidation(year, month, day);
 
 		PersianCalendar pCal = new PersianCalendar();
-		pCal.setPersianDate(year, month, day);
+		pCal.setPersianDate(year, month - 1, day);
 
 		return pCal;
 	}

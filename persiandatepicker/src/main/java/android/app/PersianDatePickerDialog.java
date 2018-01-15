@@ -1,4 +1,4 @@
-package ir.hamsaa.persiandatepicker;
+package android.app;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,10 +12,12 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.persiandatepicker.R;
+
 import java.util.Date;
 
-import ir.hamsaa.persiandatepicker.util.PersianCalendar;
-import ir.hamsaa.persiandatepicker.util.PersianHelper;
+import java.util.PersianCalendar;
+import java.util.persian.PersianHelper;
 
 /**
  * Created by aliabdolahi on 1/23/17.
@@ -28,7 +30,7 @@ public class PersianDatePickerDialog {
     private Context context;
     private String positiveButtonString = "تایید";
     private String negativeButtonString = "انصراف";
-    private Listener listener;
+    private OnDateSetListener onDateSetListener;
     private int maxYear = 0;
     private int minYear = 0;
     private PersianCalendar initDate;
@@ -42,8 +44,8 @@ public class PersianDatePickerDialog {
         this.context = context;
     }
 
-    public PersianDatePickerDialog setListener(Listener listener) {
-        this.listener = listener;
+    public PersianDatePickerDialog setOnDateSetListener(OnDateSetListener onDateSetListener) {
+        this.onDateSetListener = onDateSetListener;
         return this;
     }
 
@@ -180,8 +182,8 @@ public class PersianDatePickerDialog {
         negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (listener != null) {
-                    listener.onDismissed();
+                if (onDateSetListener != null) {
+                    onDateSetListener.onDismissed();
                 }
                 dialog.dismiss();
             }
@@ -190,8 +192,8 @@ public class PersianDatePickerDialog {
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (listener != null) {
-                    listener.onDateSelected(datePicker.getDisplayPersianDate());
+                if (onDateSetListener != null) {
+                    onDateSetListener.onDateSet(datePicker, datePicker.getDisplayPersianDate());
                 }
                 dialog.dismiss();
             }
@@ -226,6 +228,19 @@ public class PersianDatePickerDialog {
                         pCalendar.getPersianMonthName() + " " +
                         pCalendar.getPersianYear();
         dateText.setText(PersianHelper.toPersianNumber(date));
+    }
+
+    /**
+     * The listener used to indicate the user has finished selecting a date.
+     */
+    public interface OnDateSetListener {
+        /**
+         * @param datePickerView the picker associated with the dialog
+         * @param persianCalendar the selected date
+         */
+        void onDateSet(PersianDatePicker datePickerView, PersianCalendar persianCalendar);
+
+        void onDismissed();
     }
 
 }

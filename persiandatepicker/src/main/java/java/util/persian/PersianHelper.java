@@ -1,4 +1,4 @@
-package ir.hamsaa.persiandatepicker.util;
+package java.util.persian;
 
 /**
  * Created by sajjad on 01/18/2016.
