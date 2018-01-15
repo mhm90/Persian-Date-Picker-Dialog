@@ -282,11 +282,22 @@ public class PersianCalendar extends GregorianCalendar {
      Get the Julian day corresponding to the date of this calendar.
      @since 2.0
 
-     @return the Julian day corresponding to the date of this calendar.
+     @return the Julian day corresponding to the date and timezone of this calendar.
      */
     public long getJulianDay()
     {
         return div(getTimeInHereMillis() - JULIAN_EPOCH_MILLIS, ONE_DAY_MILLIS);
+    }
+
+    /**
+     Get the Julian day corresponding to the date of this calendar.
+     @since 2.0
+
+     @return the UTC Julian day corresponding to the date of this calendar.
+     */
+    public long getUtcJulianDay()
+    {
+        return div(getTimeInMillis() - JULIAN_EPOCH_MILLIS, ONE_DAY_MILLIS);
     }
     /**
      Set the date of this calendar to the specified Julian day.
@@ -296,7 +307,7 @@ public class PersianCalendar extends GregorianCalendar {
      */
     public void setJulianDay(long julianDay)
     {
-        setTimeInMillis(JULIAN_EPOCH_MILLIS + julianDay * ONE_DAY_MILLIS + mod(getTimeInHereMillis() - JULIAN_EPOCH_MILLIS, ONE_DAY_MILLIS));
+        setTimeInMillis(JULIAN_EPOCH_MILLIS + julianDay * ONE_DAY_MILLIS + mod(getTimeInMillis() - JULIAN_EPOCH_MILLIS, ONE_DAY_MILLIS));
     }
 
     /**
@@ -392,11 +403,11 @@ public class PersianCalendar extends GregorianCalendar {
      * @return String of Persian Date ex: شنبه 01 خرداد 1361
      */
     public String getPersianLongDate() {
-        return getPersianWeekDayName() + "  " + this.persianDay + "  " + getPersianMonthName() + "  " + this.persianYear;
+        return getPersianWeekDayName() + "  " + formatToMilitary(this.persianDay) + "  " + getPersianMonthName() + "  " + this.persianYear;
     }
 
     public String getPersianLongDateAndTime() {
-        return getPersianLongDate() + " \u0633\u0627\u0639\u062A " + get(HOUR_OF_DAY) + ":" + get(MINUTE) + ":" + get(SECOND);
+        return getPersianLongDate() + " \u0633\u0627\u0639\u062A " + formatToMilitary(get(HOUR_OF_DAY)) + ":" + formatToMilitary(get(MINUTE)) + ":" + formatToMilitary(get(SECOND));
     }
 
     /**
@@ -406,16 +417,16 @@ public class PersianCalendar extends GregorianCalendar {
      */
     public String getPersianShortDate() {
         // calculatePersianDate();
-        return "" + formatToMilitary(this.persianYear) + delimiter + formatToMilitary(getPersianMonth()) + delimiter + formatToMilitary(this.persianDay);
+        return "" + formatToMilitary(this.persianYear) + delimiter + formatToMilitary(getPersianMonth() + 1) + delimiter + formatToMilitary(this.persianDay);
     }
 
     public String getPersianShortDateTime() {
-        return "" + formatToMilitary(this.persianYear) + delimiter + formatToMilitary(getPersianMonth()) + delimiter + formatToMilitary(this.persianDay) + " " + formatToMilitary(this.get(HOUR_OF_DAY)) + ":" + formatToMilitary(get(MINUTE))
+        return "" + formatToMilitary(this.persianYear) + delimiter + formatToMilitary(getPersianMonth() + 1) + delimiter + formatToMilitary(this.persianDay) + " " + formatToMilitary(this.get(HOUR_OF_DAY)) + ":" + formatToMilitary(get(MINUTE))
                 + ":" + formatToMilitary(get(SECOND));
     }
 
     private String formatToMilitary(int i) {
-        return (i < 9) ? "0" + i : String.valueOf(i);
+        return (i <= 9) ? "0" + i : String.valueOf(i);
     }
 
     public String getDelimiter() {
