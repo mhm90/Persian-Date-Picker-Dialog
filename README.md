@@ -44,15 +44,14 @@ Then in your Java Code, you use it like below.
                 .setMinYear(1300)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
-                .setListener(new Listener() {
+                .setOnDateSetListener(new PersianDatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSelected(PersianCalendar persianCalendar) {
+                    public void onDateSet(PersianDatePicker datePickerView, PersianCalendar persianCalendar) {
                         Toast.makeText(context, persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onDismissed() {
-
                     }
                 });
 
