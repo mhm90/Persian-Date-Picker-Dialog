@@ -307,7 +307,7 @@ public class PersianCalendar extends GregorianCalendar {
      */
     public void setJulianDay(long julianDay)
     {
-        setTimeInMillis(JULIAN_EPOCH_MILLIS + julianDay * ONE_DAY_MILLIS + mod(getTimeInMillis() - JULIAN_EPOCH_MILLIS, ONE_DAY_MILLIS));
+        setTimeInMillis(JULIAN_EPOCH_MILLIS + julianDay * ONE_DAY_MILLIS + mod(getTimeInMillis() /* - JULIAN_EPOCH_MILLIS*/, ONE_DAY_MILLIS));
     }
 
     /**
